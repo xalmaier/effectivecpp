@@ -1,4 +1,14 @@
 #include <iostream>
+#include "CostEstimate.hpp"
+#include "GamePlayer.hpp"
+
+void f(int x)
+{
+   std::cout << "called f with " << x << "\n";
+}
+
+// call f with the maximum of a and b
+#define CALL_WITH_MAX(a,b) f((a > b) ? a : b)
 
 int main(void)
 {
@@ -22,7 +32,35 @@ int main(void)
    const char * const ConstAuthorName = "Alexander Maier";
    std::cout << "ConstAuthorName is " << ConstAuthorName << " (const char * const)\n";
 //   ConstAuthorName = "Rednaxela Reiam"; // error! assignment of read-only variable
-   std::cout << "ConstAuthorName = \"Rednaxela Reiam\"; // error! assignment of read-only variable";
+   std::cout << "ConstAuthorName = \"Rednaxela Reiam\"; // error! assignment of read-only variable \n";
 
+   // let's test class constants
+   std::cout << "Playing GamePlayer:\n";
+   GamePlayer gp;
+   gp.play();
+
+   // and estimate some costs
+   std::cout << "Cost estimate:\n";
+   CostEstimate ce;
+   ce.estimate();
+
+   // play with "the enum hack" version
+   GamePlayer2 gp2;
+   gp2.play();
+
+   // now do some stuff with macro vs. template
+   int a = 5, b = 0;
+   CALL_WITH_MAX(a, b); // fine
+   std::cout << "a is now " << a << " and b is " << b << "\n";
+   CALL_WITH_MAX(++a, b);
+   std::cout << "a is now " << a << " and b is " << b << "\n";
+   // output: a is now 7 and b is 0 - huch? 7? each a gets replaced by ++a -> 5->7
+   b = 10;
+   CALL_WITH_MAX(++a, b);
+   std::cout << "a is now " << a << " and b is " << b << "\n";
+   // output: a is now 8 and b is 10 - huch? 8? a gets only incremented once now
+   //         because b is greater (so ++a gets only called once)
+
+   // instead: use an inline template function instead
    return 0;
 }

@@ -1,4 +1,8 @@
 SOURCES += \
-    effcpp-02.cpp
+    effcpp-02.cpp \
+    GamePlayer.cpp \
+    CostEstimate.cpp
 
-HEADERS +=
+HEADERS += \
+    GamePlayer.hpp \
+    CostEstimate.hpp
