@@ -5,4 +5,5 @@ SOURCES += \
 
 HEADERS += \
     GamePlayer.hpp \
-    CostEstimate.hpp
+    CostEstimate.hpp \
+    Max.hpp

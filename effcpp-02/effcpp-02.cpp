@@ -1,6 +1,7 @@
 #include <iostream>
 #include "CostEstimate.hpp"
 #include "GamePlayer.hpp"
+#include "Max.hpp"
 
 void f(int x)
 {
@@ -62,5 +63,15 @@ int main(void)
    //         because b is greater (so ++a gets only called once)
 
    // instead: use an inline template function instead
+   std::cout << "Same calls with template function:\n";
+   a = 5;
+   b = 0;
+   callWithMax(a, b);
+   std::cout << "a is now " << a << " and b is " << b << "\n";
+   callWithMax(++a, b);
+   std::cout << "a is now " << a << " and b is " << b << "\n";
+   b = 10;
+   callWithMax(++a, b);
+   std::cout << "a is now " << a << " and b is " << b << "\n";
    return 0;
 }
